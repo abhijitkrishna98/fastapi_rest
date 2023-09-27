@@ -4,3 +4,4 @@ pymongo
 sqlalchemy
 psycopg2
 pydantic[email]
+pillow
