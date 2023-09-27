@@ -22,14 +22,14 @@ def register_user(user: UserCreate):
     finally:
         db.close()
 
-    profile_data = {"user_id": int(db_user.id), "profile_picture_path": user.profile_picture_path}
     im = Image.open(user.profile_picture_path)
     image_bytes = io.BytesIO()
     im.save(image_bytes, format='JPEG')
-    image = {
-    'data': image_bytes.getvalue()
-    }
-    mongo_collection.insert_one(image).inserted_id 
+    profile_data = {"user_id": int(db_user.id), "profile_picture": image_bytes.getvalue()}
+    # image = {
+    # 'data': image_bytes.getvalue()
+    # }
+    mongo_collection.insert_one(profile_data).inserted_id 
     # mongo_query= mongo_collection.find_one({"user_id": db_user.id},{'_id': 0})
     return {"user_details":db_user,"message":"User Registered!"}
 

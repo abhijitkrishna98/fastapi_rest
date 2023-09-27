@@ -13,10 +13,12 @@ class User(Base):
     password = Column(String)
     phone = Column(String, unique=True, index=True)
 
-Base.metadata.create_all(bind=engine)
 
 class Profile(Base):
     __tablename__ = "profile"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     profile_picture_path = Column(String)
+
+# table_objects = [User.__table__]
+Base.metadata.create_all(bind=engine,tables= [User.__table__])
