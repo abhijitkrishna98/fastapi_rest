@@ -8,16 +8,15 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
-    full_name = Column(String, index=True)
+    first_name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
     phone = Column(String, unique=True, index=True)
 
+Base.metadata.create_all(bind=engine)
 
 class Profile(Base):
     __tablename__ = "profile"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     profile_picture_path = Column(String)
-
-Base.metadata.create_all(bind=engine)
